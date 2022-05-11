@@ -16,26 +16,26 @@ path = Ed.ReadLineTracker()
 grass = none
 swamp = none
 
-buffer = path//10
+buffer = 1/10
 
 on_path = True
 spin = Ed.SPIN_RIGHT
 while True:
     color = Ed.ReadLineTracker()
     if on_path:
-        if abs(color - path) < buffer:
+        if abs(color - path) < path*buffer:
     	    Ed.Drive(Ed.FORWARD_RIGHT, speed, Ed.DISTANCE_UNLIMITED)
     	    
     	elif grass == none:
     	    grass = color
     	    
-    	elif abs(color - grass) < buffer:
+    	elif abs(color - grass) < grass*buffer:
     	    Ed.Drive(Ed.FORWARD_LEFT, speed, Ed.DISTANCE_UNLIMITED)
     	    
     	elif swamp == none:
     	    swamp = color
     	    
-    	elif abs(color - swamp) < buffer:
+    	elif abs(color - swamp) < swamp*buffer:
     	    Ed.Drive(Ed.FORWARD, speed, 3)
     	    Ed.Drive(spin, speed, 90)
     	    on_path = False
@@ -44,7 +44,7 @@ while True:
     	    Ed.Drive(Ed.FORWARD_LEFT, speed, Ed.DISTANCE_UNLIMITED)
 		    
     else:
-        if abs(color - swamp) < buffer:
+        if abs(color - swamp) < swamp*buffer:
             Ed.Drive(Ed.FORWARD, speed, Ed.DISTANCE_UNLIMITED)
             
         else:
