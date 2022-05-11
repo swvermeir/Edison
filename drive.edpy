@@ -9,16 +9,14 @@ Ed.Tempo = Ed.TEMPO_MEDIUM
 #--------Your code below-----------
 speed = Ed.SPEED_1
 
+Ed.LineTrackerLed(Ed.ON)
+
 none = 9999
-path = none
+path = Ed.ReadLineTracker()
 grass = none
 swamp = none
 
-buffer = 50
-
-Ed.LineTrackerLed(Ed.ON)
-
-path = Ed.ReadLineTracker()
+buffer = path//10
 
 on_path = True
 spin = Ed.SPIN_RIGHT
@@ -40,7 +38,7 @@ while True:
     	elif abs(color - swamp) < buffer:
     	    Ed.Drive(Ed.FORWARD, speed, 3)
     	    Ed.Drive(spin, speed, 90)
-    	    path = False
+    	    on_path = False
     	    
     	else:
     	    Ed.Drive(Ed.FORWARD_LEFT, speed, Ed.DISTANCE_UNLIMITED)
