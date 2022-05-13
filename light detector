@@ -12,35 +12,39 @@ Ed.Tempo = Ed.TEMPO_MEDIUM
 
 Ed.LineTrackerLed(Ed.ON)
 
-Ed.TimeWait(500, Ed.TIME_MILLISECONDS)
-light = Ed.ReadLineTracker()
-Ed.TimeWait(500, Ed.TIME_MILLISECONDS)
+light = 0
+n = 10
+for _ in range(n):
+    Ed.Drive(Ed.FORWARD, Ed.SPEED_10, 2)
+    Ed.Drive(Ed.BACKWARD, Ed.SPEED_10, 2)
+    light += Ed.ReadLineTracker()
+    Ed.TimeWait(500, Ed.TIME_MILLISECONDS)
+light //= n
 
-d = light // 1000
-h = (light - d*1000) // 100
-t = (light - d*1000 - h*100) // 10
-e = light - d*1000 - h*100 - t*10
-
-for _ in range(d):
+while light >= 1000:
     Ed.PlayBeep()
+    light -= 1000
     Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
 
 Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
 
-for _ in range(h):
+while light >= 100:
     Ed.PlayBeep()
+    light -= 100
     Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
 
 Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
 
-for _ in range(t):
+while light >= 10:
     Ed.PlayBeep()
+    light -= 10
     Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
 
 Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
 
-for _ in range(e):
+while light >= 1:
     Ed.PlayBeep()
+    light -= 1
     Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
 
 Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
