@@ -1,0 +1,42 @@
+# -------------Setup----------------
+import Ed
+
+Ed.EdisonVersion = Ed.V2
+
+Ed.DistanceUnits = Ed.CM
+Ed.Tempo = Ed.TEMPO_MEDIUM
+
+# --------Your code below-----------
+Ed.LineTrackerLed(Ed.ON)
+
+spin = Ed.SPIN_LEFT
+path = True
+while True:
+    color = Ed.ReadLineTracker()
+    if path:
+        if color < 475:
+            Ed.Drive(Ed.FORWARD_RIGHT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+            
+        elif color < 900:
+            Ed.Drive(Ed.FORWARD_LEFT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+    
+        else:
+            Ed.Drive(Ed.FORWARD, Ed.SPEED_1, 3)
+            Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
+            if Ed.ReadLineTracker() > 900:
+                path = False
+                
+    else:
+        if color > 900:
+            Ed.Drive(Ed.FORWARD, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+        else:
+            Ed.Drive(spin, Ed.SPEED_1, 90)
+            Ed.Drive(Ed.FORWARD,Ed.SPEED_1, 3)
+            Ed.Drive(spin, Ed.SPEED_1, 90)
+            Ed.Drive(Ed.FORWARD,Ed.SPEED_1, 10)
+            
+            
+            if spin == Ed.SPIN_RIGHT:
+                spin = Ed.SPIN_LEFT
+            else:
+                spin = Ed.SPIN_RIGHT
