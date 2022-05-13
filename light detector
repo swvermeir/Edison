@@ -1,0 +1,46 @@
+
+#-------------Setup----------------
+
+import Ed
+
+Ed.EdisonVersion = Ed.V2
+
+Ed.DistanceUnits = Ed.CM
+Ed.Tempo = Ed.TEMPO_MEDIUM
+
+#--------Your code below-----------
+
+Ed.LineTrackerLed(Ed.ON)
+
+Ed.TimeWait(500, Ed.TIME_MILLISECONDS)
+light = Ed.ReadLineTracker()
+Ed.TimeWait(500, Ed.TIME_MILLISECONDS)
+
+d = light // 1000
+h = (light - d*1000) // 100
+t = (light - d*1000 - h*100) // 10
+e = light - d*1000 - h*100 - t*10
+
+for _ in range(d):
+    Ed.PlayBeep()
+    Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
+
+Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
+
+for _ in range(h):
+    Ed.PlayBeep()
+    Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
+
+Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
+
+for _ in range(t):
+    Ed.PlayBeep()
+    Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
+
+Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
+
+for _ in range(e):
+    Ed.PlayBeep()
+    Ed.TimeWait(100, Ed.TIME_MILLISECONDS)
+
+Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_1, 90)
